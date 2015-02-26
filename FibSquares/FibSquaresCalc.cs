@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace FibSquares
 {
-    public class FibSquares
+    public class FibSquaresCalc
     {
         public List<SquareData> Calculate(float limitX, float limitY)
         {
             List<SquareData> result = new List<SquareData>();
+            Fibonacci fib = new Fibonacci();
+
             MinMaxXY mmNew;
             MinMaxXY mm = new MinMaxXY();
 
             // Start by generating squares around (0,0)
             for(int i=0; ; i++)
             {
-                int size = 0;
+                int size = fib.Current;
+                fib.MoveNext();
                 SquareData sd = MakeSquare( i % 4, size, mm);
 
                 mmNew = UpdateMinMax(sd, mm);

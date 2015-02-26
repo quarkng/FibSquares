@@ -6,26 +6,65 @@ using System.Threading.Tasks;
 
 namespace FibSquares
 {
-    public static class Fibonacci
+    public class Fibonacci : IEnumerable<int>, IEnumerator<int>
     {
-        public static IEnumerable<int> Sequence()
+        private int first = 1;
+        private int second = 1;
+        private int walkCount = 0;
+
+
+
+        public IEnumerator<int> GetEnumerator()
         {
-            int first = 1;
-            int second = 1;
+            return new Fibonacci();
+        }
 
-            yield return first;
-            yield return second;
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
 
-            // this enumerable sequence is bounded by the caller.
-            while (true)
+
+
+        public int Current
+        {
+            get 
             {
-                int current = first + second;
-                yield return current;
-
-                // wind up for next number if we're requesting one
-                first = second;
-                second = current;
+                if (walkCount >= 2)
+                {
+                    return first + second;
+                }
+                else
+                {
+                    return 1;
+                }
             }
+        }
+
+        public void Dispose()
+        {
+        }
+
+        object System.Collections.IEnumerator.Current
+        {
+            get { return this.Current; }
+        }
+
+        public bool MoveNext()
+        {
+            walkCount++;
+            if (walkCount >= 2)
+            {
+                int val = first + second;
+                first = second;
+                second = val;
+            }
+            return true;
+        }
+
+        public void Reset()
+        {
+            walkCount  = 0;
         }
     }
 }

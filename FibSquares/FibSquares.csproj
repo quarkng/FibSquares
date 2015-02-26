@@ -54,7 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Fibonacci.cs" />
-    <Compile Include="FibSquares.cs" />
+    <Compile Include="FibSquaresCalc.cs" />
     <Compile Include="MinMaxXY.cs" />
     <Compile Include="SquareData.cs" />
     <Page Include="FibSquaresDisplay.xaml">

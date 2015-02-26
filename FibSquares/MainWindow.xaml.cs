@@ -54,8 +54,8 @@ namespace FibSquares
 
 
             FibSquaresDisplay disp = new FibSquaresDisplay();
-            FibSquares fs = new FibSquares();
-            disp.DrawSquares( fs.Calculate() );
+            FibSquaresCalc fs = new FibSquaresCalc();
+            disp.DrawSquares( fs.Calculate(h, v) );
             disp.ShowDialog();
 
 
