@@ -48,10 +48,14 @@ namespace FibSquares
             }
 
             btnDraw.IsEnabled = false;
-            
+
+            h *= 96; // standard device-independent unit: 96 dpi
+            v *= 96;
+
 
             FibSquaresDisplay disp = new FibSquaresDisplay();
-            disp.DrawSquares(null);
+            FibSquares fs = new FibSquares();
+            disp.DrawSquares( fs.Calculate() );
             disp.ShowDialog();
 
 

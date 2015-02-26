@@ -9,9 +9,9 @@ namespace FibSquares
 {
     public class SquareData
     {
-        public int Left { get; set; }
-        public int Top { get; set; }
-        public int Size { get; set; } // Width & Height
+        public float Left { get; set; }
+        public float Top { get; set; }
+        public float Size { get; set; } // Width & Height
         public Color Fill { get; set; }
     }
 }
