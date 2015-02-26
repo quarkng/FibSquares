@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace FibSquares
 {
@@ -12,6 +13,7 @@ namespace FibSquares
         {
             List<SquareData> result = new List<SquareData>();
             Fibonacci fib = new Fibonacci();
+            ColorsGen colGen = new ColorsGen();
 
             MinMaxXY mmNew;
             MinMaxXY mm = new MinMaxXY();
@@ -21,7 +23,12 @@ namespace FibSquares
             {
                 int size = fib.Current;
                 fib.MoveNext();
+
                 SquareData sd = MakeSquare( i % 4, size, mm);
+
+                sd.Fill = colGen.Current;
+                colGen.MoveNext();
+
 
                 mmNew = UpdateMinMax(sd, mm);
                 if( (mmNew.MaxX - mmNew.MinX > limitX) || (mmNew.MaxY - mmNew.MinY > limitY) )
@@ -63,6 +70,38 @@ namespace FibSquares
         private SquareData MakeSquare( int direction, int size, MinMaxXY mmxy)
         {
             SquareData sd = new SquareData();
+
+            sd.Size = size;
+            
+            switch( direction )
+            {
+                case 0: // up
+                    sd.Left = mmxy.MinX;
+                    sd.Top = mmxy.MinY - size;
+                    sd.Fill = Colors.Green;
+                    break;
+
+                case 1: // left
+                    sd.Left = mmxy.MinX - size;
+                    sd.Top = mmxy.MinY;
+                    sd.Fill = Colors.Red;
+                    break;
+
+                case 2: // down
+                    sd.Left = mmxy.MinX;
+                    sd.Top = mmxy.MaxY;
+                    sd.Fill = Colors.Blue;
+                    break;
+
+                case 3: // right
+                    sd.Left = mmxy.MaxX;
+                    sd.Top = mmxy.MinY;
+                    sd.Fill = Colors.Yellow;
+                    break;
+
+                default:
+                    throw new Exception("Unknown direction value");
+            }
 
 
             return sd;

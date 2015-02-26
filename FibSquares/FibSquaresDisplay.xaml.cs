@@ -27,22 +27,32 @@ namespace FibSquares
 
         public void DrawSquares( List<SquareData> squares )
         {
-            System.Windows.Shapes.Rectangle rect;
-            rect = new System.Windows.Shapes.Rectangle();
-            rect.Stroke = new SolidColorBrush(Colors.Black);
-            rect.Fill = new SolidColorBrush(Colors.Black);
-            rect.Width=200;
-            rect.Height=200;
+            float maxX = 0;
+            float maxY = 0;
 
-            Canvas.SetLeft(rect, 5*96-200-10);
-            Canvas.SetTop(rect, 3*96-200-10);
-            canvas.Children.Add(rect);
+            foreach( var s in squares )
+            {
+                AddSquare(s);
+                maxX = (s.Left + s.Size > maxX) ? (s.Left + s.Size) : maxX;
+                maxY = (s.Top + s.Size > maxY) ? (s.Top + s.Size) : maxY;
+            }
 
-
-
-            canvas.Height = 3 * 96;
-            canvas.Width = 5 * 96;
+            canvas.Height = maxY;
+            canvas.Width = maxX;
             this.SizeToContent = SizeToContent.WidthAndHeight;
         }
+
+        private void AddSquare(SquareData square)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Stroke = rect.Fill = new SolidColorBrush(square.Fill);
+            rect.Width = rect.Height = square.Size;
+
+            Canvas.SetLeft(rect, square.Left);
+            Canvas.SetTop(rect, square.Top);
+            canvas.Children.Add(rect);
+        }
+
+
     }
 }
